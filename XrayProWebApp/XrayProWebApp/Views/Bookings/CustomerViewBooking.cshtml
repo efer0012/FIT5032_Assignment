@@ -1,0 +1,72 @@
+﻿@model XrayProWebApp.Models.Booking
+@using System.Linq.Expressions
+@using System
+
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Booking Details</h2>
+
+    <div class="card">
+        <div class="card-body">
+            <dl class="row">
+                <dt class='col-sm-3 text-end'>Created On</dt>
+                <dd class='col-sm-9'>@Html.DisplayFor(model => model.Created)</dd>
+                <dt class='col-sm-3 text-end'>Booking Date</dt>
+                <dd class='col-sm-9'>@Html.DisplayFor(model => model.Date)</dd>
+                <dt class='col-sm-3 text-end'>Booking Time</dt>
+                <dd class='col-sm-9'>@Html.DisplayFor(model => model.Time)</dd>
+                <dt class='col-sm-3 text-end'>X-ray Type</dt>
+                <dd class='col-sm-9'>@Html.DisplayFor(model => model.XrayType)</dd>
+                <dt class='col-sm-3 text-end'>X-ray Description</dt>
+                <dd class='col-sm-9'>@Html.DisplayFor(model => model.XrayDescription)</dd>
+                <dt class='col-sm-3 text-end'>Referral Doctor Name</dt>
+                <dd class='col-sm-9'>@Html.DisplayFor(model => model.ReferralDoctorName)</dd>
+                <dt class='col-sm-3 text-end'>Referral Doctor Phone</dt>
+                <dd class='col-sm-9'>@Html.DisplayFor(model => model.ReferralDoctorPhone)</dd>
+                <dt class='col-sm-3 text-end'>Booking Status</dt>
+                <dd class='col-sm-9'>
+                    @if (Model.BookingStatus == 0)
+                    {
+                        <span class="text-warning font-weight-bold">Pending</span>
+                    }
+                    else if (Model.BookingStatus == 1)
+                    {
+                        <span class="text-primary font-weight-bold">Confirmed</span>
+                    }
+                    else if (Model.BookingStatus == 2)
+                    {
+                        <span class="text-success font-weight-bold">Completed</span>
+                    }
+                    else
+                    {
+                        <span class="text-danger font-weight-bold">Rejected</span>
+                    }
+                </dd>
+                <dt class='col-sm-3 text-end'>X-ray Room Number</dt>
+                <dd class='col-sm-9'>
+                    @if (Model.Room?.Number == null)
+                    {
+                        <span>N/A</span>
+                    }
+                    else
+                    {
+                        <span>@Model.Room.Number</span>
+                    }
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        @Html.ActionLink("Edit", "CustomerEditBooking", new { id = Model.Id }, new { @class = "btn btn-warning" })
+        @Html.ActionLink("Back", "CustomerBookings", null, new { @class = "btn btn-light ml-2" })
+    </div>
+</div>
+
+
+

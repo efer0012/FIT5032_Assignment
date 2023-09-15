@@ -1,0 +1,87 @@
+﻿@model XrayProWebApp.Models.Booking
+
+@{
+
+    ViewBag.Title = "Create Booking";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main aria-labelledby="title" class="container mt-4">
+    <h2 id="title">@ViewBag.Title</h2>
+    <hr />
+
+    @using (Html.BeginForm("Create", "Bookings", FormMethod.Post, new { @class = "mt-4" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col-md-8">
+                <!-- Form aligned to left -->
+                @Html.ValidationSummary(true, "", new { @class = "text-danger mb-3" })
+
+                @Html.HiddenFor(model => model.Id, new { Value = Guid.NewGuid().ToString("N").Substring(0, 8) })
+                @Html.HiddenFor(model => model.CustomerId, new { Value = ViewBag.UserId })
+                @Html.Hidden("Created", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"))
+                @Html.HiddenFor(model => model.BookingStatus, new { Value = 0 })
+
+                <!-- Booking Date and Time -->
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.Date, new { @class = "font-weight-bold" })
+                        @Html.TextBoxFor(model => model.Date, "{0:yyyy-MM-dd}", new { type = "date", min = DateTime.Now.ToString("yyyy-MM-dd"), @class = "form-control", placeholder = "Select a Date" })
+                        @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.Time, new { @class = "font-weight-bold" })
+                        @Html.EditorFor(model => model.Time, new { htmlAttributes = new { @class = "form-control", placeholder = "Select a Time" } })
+                        @Html.ValidationMessageFor(model => model.Time, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <!-- X-ray Type -->
+                <div class="form-group">
+                    @Html.LabelFor(model => model.XrayType, new { @class = "font-weight-bold" })
+                    @Html.DropDownListFor(model => model.XrayType, new List<SelectListItem>
+                    {
+                        new SelectListItem { Text = "Chest X-ray", Value = "Chest X-ray" },
+                        new SelectListItem { Text = "Dental X-ray", Value = "Dental X-ray" },
+                        new SelectListItem { Text = "Bone X-ray", Value = "Bone X-ray" },
+                        new SelectListItem { Text = "Mammography", Value = "Mammography" }
+                        //... you can add more types if needed
+                    }, "Select an X-ray Type", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.XrayType, "", new { @class = "text-danger" })
+                </div>
+
+                <!-- X-ray Description -->
+                <div class="form-group">
+                    @Html.LabelFor(model => model.XrayDescription, new { @class = "font-weight-bold" })
+                    @Html.TextAreaFor(model => model.XrayDescription, new { @class = "form-control", placeholder = "Enter X-ray Description" })
+                    @Html.ValidationMessageFor(model => model.XrayDescription, "", new { @class = "text-danger" })
+                </div>
+
+                <!-- Referral Doctor Name and Phone Number -->
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.ReferralDoctorName, new { @class = "font-weight-bold" })
+                        @Html.EditorFor(model => model.ReferralDoctorName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Doctor's Name" } })
+                        @Html.ValidationMessageFor(model => model.ReferralDoctorName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.ReferralDoctorPhone, new { @class = "font-weight-bold" })
+                        @Html.EditorFor(model => model.ReferralDoctorPhone, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Doctor's Phone" } })
+                        @Html.ValidationMessageFor(model => model.ReferralDoctorPhone, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="form-group mt-3">
+                    <button type="submit" class="btn btn-primary">Create Booking</button>
+                    @Html.ActionLink("Back", "CustomerBookings", null, new { @class = "btn btn-light ml-2" })
+                </div>
+            </div>
+        </div>
+    }
+</main>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

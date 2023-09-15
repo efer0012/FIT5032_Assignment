@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="XrayProModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Bookings">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="CustomerId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="RoomId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Created" Type="datetime" Nullable="false" />
+    <Property Name="Date" Type="date" Nullable="false" />
+    <Property Name="Time" Type="time" Precision="7" Nullable="false" />
+    <Property Name="XrayType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="XrayDescription" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ReferralDoctorName" Type="nvarchar" MaxLength="255" />
+    <Property Name="ReferralDoctorPhone" Type="nvarchar" MaxLength="20" />
+    <Property Name="BookingStatus" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="XrayOutcomeDesc" Type="nvarchar(max)" />
+    <Property Name="NurseId" Type="int" />
+    <Property Name="CustomerRatings" Type="int" />
+    <Property Name="CustomerFeedback" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Images">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="BookingId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Path" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Rooms">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Number" Type="nvarchar" MaxLength="4" />
+  </EntityType>
+  <Association Name="FK_dbo_BookingsRooms">
+    <End Role="Rooms" Type="Self.Rooms" Multiplicity="1" />
+    <End Role="Bookings" Type="Self.Bookings" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rooms">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Bookings">
+        <PropertyRef Name="RoomId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_ImagesBookings">
+    <End Role="Bookings" Type="Self.Bookings" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Images" Type="Self.Images" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bookings">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Images">
+        <PropertyRef Name="BookingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="XrayProModel1StoreContainer">
+    <EntitySet Name="Bookings" EntityType="Self.Bookings" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Images" EntityType="Self.Images" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rooms" EntityType="Self.Rooms" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_dbo_BookingsRooms" Association="Self.FK_dbo_BookingsRooms">
+      <End Role="Rooms" EntitySet="Rooms" />
+      <End Role="Bookings" EntitySet="Bookings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_ImagesBookings" Association="Self.FK_dbo_ImagesBookings">
+      <End Role="Bookings" EntitySet="Bookings" />
+      <End Role="Images" EntitySet="Images" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

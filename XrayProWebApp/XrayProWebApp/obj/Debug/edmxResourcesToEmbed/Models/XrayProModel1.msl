@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="XrayProModel1StoreContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="Bookings">
+      <EntityTypeMapping TypeName="XrayProModel1.Booking">
+        <MappingFragment StoreEntitySet="Bookings">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="RoomId" ColumnName="RoomId" />
+          <ScalarProperty Name="Created" ColumnName="Created" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="XrayType" ColumnName="XrayType" />
+          <ScalarProperty Name="XrayDescription" ColumnName="XrayDescription" />
+          <ScalarProperty Name="ReferralDoctorName" ColumnName="ReferralDoctorName" />
+          <ScalarProperty Name="ReferralDoctorPhone" ColumnName="ReferralDoctorPhone" />
+          <ScalarProperty Name="BookingStatus" ColumnName="BookingStatus" />
+          <ScalarProperty Name="XrayOutcomeDesc" ColumnName="XrayOutcomeDesc" />
+          <ScalarProperty Name="NurseId" ColumnName="NurseId" />
+          <ScalarProperty Name="CustomerRatings" ColumnName="CustomerRatings" />
+          <ScalarProperty Name="CustomerFeedback" ColumnName="CustomerFeedback" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Images">
+      <EntityTypeMapping TypeName="XrayProModel1.Image">
+        <MappingFragment StoreEntitySet="Images">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BookingId" ColumnName="BookingId" />
+          <ScalarProperty Name="Path" ColumnName="Path" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rooms">
+      <EntityTypeMapping TypeName="XrayProModel1.Room">
+        <MappingFragment StoreEntitySet="Rooms">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Number" ColumnName="Number" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,78 @@
+﻿@model XrayProWebApp.Models.Booking
+
+@{
+    ViewBag.Title = "Edit Booking";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main aria-labelledby="title" class="container mt-4">
+    <h2 id="title">@ViewBag.Title</h2>
+    <hr />
+
+    @using (Html.BeginForm("CustomerEditBooking", "Bookings", FormMethod.Post, new { @class = "mt-4" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col-md-8">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger mb-3" })
+
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.CustomerId)
+                @Html.HiddenFor(model => model.Created)
+                @Html.HiddenFor(model => model.BookingStatus)
+
+                <!-- Booking Date and Time -->
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.Date, new { @class = "font-weight-bold" })
+                        @Html.TextBoxFor(model => model.Date, "{0:yyyy-MM-dd}", new { type = "date", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.Time, new { @class = "font-weight-bold" })
+                        @Html.EditorFor(model => model.Time, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Time, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <!-- X-ray Type -->
+                <div class="form-group">
+                    @Html.LabelFor(model => model.XrayType, new { @class = "font-weight-bold" })
+                    @Html.EditorFor(model => model.XrayType, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.XrayType, "", new { @class = "text-danger" })
+                </div>
+
+                <!-- X-ray Description -->
+                <div class="form-group">
+                    @Html.LabelFor(model => model.XrayDescription, new { @class = "font-weight-bold" })
+                    @Html.EditorFor(model => model.XrayDescription, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.XrayDescription, "", new { @class = "text-danger" })
+                </div>
+
+                <!-- Referral Doctor Name and Phone Number -->
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.ReferralDoctorName, new { @class = "font-weight-bold" })
+                        @Html.EditorFor(model => model.ReferralDoctorName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ReferralDoctorName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.ReferralDoctorPhone, new { @class = "font-weight-bold" })
+                        @Html.EditorFor(model => model.ReferralDoctorPhone, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ReferralDoctorPhone, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="form-group mt-3">
+                    <input type="submit" value="Save Changes" class="btn btn-primary" />
+                    <button onclick="window.history.back();" class="btn btn-light ml-2">Back</button>
+                </div>
+            </div>
+        </div>
+    }
+</main>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

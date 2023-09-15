@@ -1,0 +1,137 @@
+﻿@model XrayProWebApp.Models.Booking
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Booking</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Room.Number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Room.Number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomerId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Created)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Created)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Time)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Time)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.XrayType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.XrayType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.XrayDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.XrayDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReferralDoctorName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReferralDoctorName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReferralDoctorPhone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReferralDoctorPhone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BookingStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BookingStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.XrayOutcomeDesc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.XrayOutcomeDesc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NurseId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NurseId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerRatings)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomerRatings)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerFeedback)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomerFeedback)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <button onclick="window.history.back();" class="btn btn-light ml-2">Back</button>
+        </div>
+    }
+</div>

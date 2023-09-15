@@ -1,0 +1,124 @@
+﻿@model IEnumerable<XrayProWebApp.Models.Booking>
+
+@{
+    ViewBag.Title = "Bookings";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int allBookingsRowNumber = 0;
+}
+
+
+<main aria-labelledby="title" class="container mt-4">
+    <h2 id="title">@ViewBag.Title</h2>
+    <hr />
+
+    <p>
+        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+    </p>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            There are no bookings.
+        </div>
+    }
+    else
+    {
+
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover">
+                <thead class="thead-dark">
+                    <!-- Enhanced header -->
+                    <tr>
+                        <th>
+                            #
+                        </th>
+                        <th>
+                            Booking ID
+                        </th>
+                        <th>
+                            Booking Date
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Time)
+                        </th>
+                        <th>
+                            Type
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Booking Status
+                        </th>
+                        <th>
+                            Xray Room
+                        </th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        allBookingsRowNumber++;
+                        <tr>
+                            <td>
+                                @allBookingsRowNumber
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Date)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Time)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.XrayType)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.XrayDescription)
+                            </td>
+                            <td>
+                                @if (item.BookingStatus == 0)
+                                {
+                                    <span class="text-warning font-weight-bold">Pending</span>
+                                }
+                                else if (item.BookingStatus == 1)
+                                {
+                                    <span class="text-primary font-weight-bold">Confirmed</span>
+                                }
+                                else if (item.BookingStatus == 2)
+                                {
+                                    <span class="text-success font-weight-bold">Completed</span>
+                                }
+                                else
+                                {
+                                    <span class="text-danger font-weight-bold">Rejected</span>
+                                }
+                            </td>
+
+                            <td>
+                                @if (item.Room?.Number == null)
+                                {
+                                    <span>N/A</span>
+                                }
+                                else
+                                {
+                                    <span>@item.Room.Number</span>
+                                }
+                            </td>
+                            <td>
+                                @Html.ActionLink("View", "CustomerViewBooking", new { id = item.Id }, new { @class = "btn btn-sm btn-info" })
+                                @Html.ActionLink("Edit", "CustomerEditBooking", new { id = item.Id }, new { @class = "btn btn-sm btn-warning" })
+                                @Html.ActionLink("Delete", "CustomerDeleteBooking", new { id = item.Id }, new { @class = "btn btn-sm btn-danger" })
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    </main>
