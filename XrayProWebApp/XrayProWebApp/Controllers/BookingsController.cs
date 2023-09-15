@@ -15,12 +15,12 @@ namespace XrayProWebApp.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Bookings
+/*        // GET: Bookings
         public ActionResult Index()
         {
             var bookings = db.Bookings.Include(b => b.Room);
             return View(bookings.ToList());
-        }
+        }*/
 
         // GET: CustomerBookings
         [Authorize]
@@ -32,7 +32,7 @@ namespace XrayProWebApp.Controllers
             return View(bookings.ToList());
         }
 
-        // GET: Bookings/Details/5
+/*        // GET: Bookings/Details/5
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -45,9 +45,10 @@ namespace XrayProWebApp.Controllers
                 return HttpNotFound();
             }
             return View(booking);
-        }
+        }*/
 
         // GET: Bookings/CustomerViewBooking/5
+        [Authorize]
         public ActionResult CustomerViewBooking(string id)
         {
             if (id == null)
@@ -62,8 +63,6 @@ namespace XrayProWebApp.Controllers
             return View(booking);
         }
 
-
-
         // GET: Bookings/Create
         [Authorize]
         public ActionResult Create()
@@ -74,9 +73,7 @@ namespace XrayProWebApp.Controllers
             return View();
         }
 
-        // POST: Bookings/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Bookings/Create (CUSTOMER CREATE BOOKING)
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
